@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircularPulsingButton">
+        <attr name="cpb_color" format="color"/>
+        <attr name="cpb_zoomOutScale" format="float"/>
+        <attr name="cpb_text" format="string"/>
+        <attr name="cpb_textColor" format="color"/>
+    </declare-styleable>
+</resources>
