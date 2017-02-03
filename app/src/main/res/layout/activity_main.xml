@@ -13,11 +13,12 @@
     tools:context="ir.sohreco.circularpulsingbutton.sample.MainActivity">
 
     <ir.sohreco.circularpulsingbutton.CircularPulsingButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_centerInParent="true"
         app:cpb_text="Hello World!"
-        app:cpb_zoomOutScale="0.3"
-        app:cpb_zoomInScale="1.5"/>
+        app:cpb_zoomOutScale="0.5"
+        app:cpb_zoomInScale="1.5"
+        app:cpb_animationDuration="500"/>
 
 </RelativeLayout>

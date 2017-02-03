@@ -21,12 +21,14 @@ import android.widget.TextView;
 public class CircularPulsingButton extends FrameLayout {
     private class Circle extends View {
         private Paint paint;
+        private float zoomInScale;
 
-        private Circle(Context context) {
+        private Circle(Context context, float zoomInScale) {
             super(context);
             paint = new Paint();
             paint.setColor(Color.GRAY);
             paint.setAntiAlias(true);
+            this.zoomInScale = zoomInScale;
         }
 
         private void setColor(int color) {
@@ -37,10 +39,12 @@ public class CircularPulsingButton extends FrameLayout {
         @Override
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
+
             float cx = canvas.getWidth() / 2;
             float cy = canvas.getHeight() / 2;
-            // Circle must be 20% smaller than button's size.
-            float radius = cx - (cx * 20) / 100;
+
+            float radius = cx - (cx * ((zoomInScale - 1) * 100) / 100);
+
             canvas.drawCircle(cx, cy, radius, paint);
         }
     }
@@ -48,6 +52,8 @@ public class CircularPulsingButton extends FrameLayout {
     private Circle backgroundCircle;
     private TextView tvButtonText;
     private float zoomOutScale;
+    private float zoomInScale;
+    private int animationDuration;
 
     public CircularPulsingButton(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -66,18 +72,24 @@ public class CircularPulsingButton extends FrameLayout {
     }
 
     private void initialize(Context context, AttributeSet attrs) {
-        tvButtonText = new TextView(context);
-        addBackgroundCircle();
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.CircularPulsingButton);
+
+        setZoomOutScale(arr.getFloat(R.styleable.CircularPulsingButton_cpb_zoomOutScale, 0.5f));
+        setZoomInScale(arr.getFloat(R.styleable.CircularPulsingButton_cpb_zoomInScale, 1.1f));
+        setAnimationDuration(arr.getInt(R.styleable.CircularPulsingButton_cpb_animationDuration, 100));
+
+        addBackgroundCircle();
         setColor(arr.getColor(R.styleable.CircularPulsingButton_cpb_color, Color.GRAY));
+
+        tvButtonText = new TextView(context);
         tvButtonText.setText(arr.getString(R.styleable.CircularPulsingButton_cpb_text));
         tvButtonText.setTextColor(arr.getColor(R.styleable.CircularPulsingButton_cpb_textColor, Color.BLACK));
-        setZoomOutScale(arr.getFloat(R.styleable.CircularPulsingButton_cpb_zoomOutScale, 0.5f));
+
         arr.recycle();
     }
 
     /**
-     * @param scale The value must be between 0 and 1.
+     * @param scale Value must be between 0 and 1.
      */
     public void setZoomOutScale(float scale) {
         if (scale >= 1) {
@@ -86,6 +98,30 @@ public class CircularPulsingButton extends FrameLayout {
             zoomOutScale = 0.1f;
         } else {
             zoomOutScale = scale;
+        }
+    }
+
+    /**
+     * @param scale Value must be between 1 and 2.
+     */
+    public void setZoomInScale(float scale) {
+        if (scale <= 1) {
+            zoomInScale = 1.1f;
+        } else if (scale >= 2) {
+            zoomInScale = 1.9f;
+        } else {
+            zoomInScale = scale;
+        }
+    }
+
+    /**
+     * @param duration Value must be greater than 0.
+     */
+    public void setAnimationDuration(int duration) {
+        if (duration <= 0) {
+            animationDuration = 100;
+        } else {
+            animationDuration = duration;
         }
     }
 
@@ -126,8 +162,16 @@ public class CircularPulsingButton extends FrameLayout {
         return zoomOutScale;
     }
 
+    public float getZoomInScale() {
+        return zoomInScale;
+    }
+
+    public int getAnimationDuration() {
+        return animationDuration;
+    }
+
     private void addBackgroundCircle() {
-        backgroundCircle = new Circle(getContext());
+        backgroundCircle = new Circle(getContext(), zoomInScale);
         backgroundCircle.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -140,8 +184,8 @@ public class CircularPulsingButton extends FrameLayout {
                     case MotionEvent.ACTION_UP:
                         scaleView(backgroundCircle, zoomOutScale, 1f);
                         scaleView(tvButtonText, zoomOutScale, 1f);
-                        scaleView(backgroundCircle, 1.2f, 1f);
-                        scaleView(tvButtonText, 1.2f, 1f);
+                        scaleView(backgroundCircle, zoomInScale, 1f);
+                        scaleView(tvButtonText, zoomInScale, 1f);
                         break;
                 }
                 return true;
@@ -172,7 +216,7 @@ public class CircularPulsingButton extends FrameLayout {
                 Animation.ABSOLUTE, v.getWidth() / 2, // Pivot point of X scaling
                 Animation.ABSOLUTE, v.getHeight() / 2); // Pivot point of Y scaling
         anim.setFillAfter(true);
-        anim.setDuration(300);
+        anim.setDuration(animationDuration);
         v.startAnimation(anim);
     }
 }

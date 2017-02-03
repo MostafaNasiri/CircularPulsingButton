@@ -3,6 +3,8 @@
     <declare-styleable name="CircularPulsingButton">
         <attr name="cpb_color" format="color"/>
         <attr name="cpb_zoomOutScale" format="float"/>
+        <attr name="cpb_zoomInScale" format="float"/>
+        <attr name="cpb_animationDuration" format="integer"/>
         <attr name="cpb_text" format="string"/>
         <attr name="cpb_textColor" format="color"/>
     </declare-styleable>
