@@ -1,7 +1,8 @@
-package ir.sohreco.circularpulsingbutton;
+package ir.sohreco.circularpulsingbutton.sample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 
 public class MainActivity extends AppCompatActivity {
 
