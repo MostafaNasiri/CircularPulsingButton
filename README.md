@@ -3,18 +3,19 @@
 <h2>How to Add the Library</h2>
 <p>This library is availabe in the jcenter repository. Simply add this line of code in your dependencies:</p>
 ```
-compile 'ir.sohreco.circularpulsingbutton:circular-pulsing-button:1.0.0'
+compile 'ir.sohreco.circularpulsingbutton:circular-pulsing-button:1.1'
 ```
 <h2>How to Use</h2>
 <p>You can see an example of adding this button in your layouts in the code below:</p>
 ```xml
 <ir.sohreco.circularpulsingbutton.CircularPulsingButton
-        android:id="@+id/cpb"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:cpb_text="Click Me!"
-        app:cpb_color="@color/colorAccent"
-        app:cpb_textColor="#FFFF"
-        app:cpb_zoomOutScale="0.8"/>
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        app:cpb_text="Hello World!"
+        app:cpb_zoomOutScale="0.5"
+        app:cpb_zoomInScale="1.5"
+        app:cpb_animationDuration="300"/>
 ```
-<b>Note that zoomOutScale must be a float value between 0 and 1.</b>
+<b>Note that zoomOutScale must be a float value between 0 and 1.</b><br>
+<b>zoomInScale must be a float value between 1 and 2. Button size gets smaller when you increase zoomInScale.</b>
