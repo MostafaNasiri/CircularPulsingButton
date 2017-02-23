@@ -10,6 +10,7 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -51,6 +52,7 @@ public class CircularPulsingButton extends FrameLayout {
 
     private Circle backgroundCircle;
     private TextView tvButtonText;
+    private OnClickListener listener;
     private float zoomOutScale;
     private float zoomInScale;
     private int animationDuration;
@@ -69,6 +71,27 @@ public class CircularPulsingButton extends FrameLayout {
     public CircularPulsingButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initialize(context, attrs);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (listener != null) listener.onClick(this);
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_UP && (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+            if (listener != null) listener.onClick(this);
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
     }
 
     private void initialize(Context context, AttributeSet attrs) {

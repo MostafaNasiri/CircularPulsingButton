@@ -13,6 +13,7 @@
     tools:context="ir.sohreco.circularpulsingbutton.sample.MainActivity">
 
     <ir.sohreco.circularpulsingbutton.CircularPulsingButton
+        android:id="@+id/btn"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerInParent="true"
