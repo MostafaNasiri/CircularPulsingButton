@@ -3,7 +3,7 @@
 <h2>How to Add the Library</h2>
 <p>This library is availabe in the jcenter repository. Simply add this line of code in your dependencies:</p>
 ```
-compile 'ir.sohreco.circularpulsingbutton:circular-pulsing-button:1.1'
+compile 'ir.sohreco.circularpulsingbutton:circular-pulsing-button:1.1.1'
 ```
 <h2>How to Use</h2>
 <p>You can see an example of adding this button in your layouts in the code below:</p>
