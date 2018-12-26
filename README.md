@@ -1,5 +1,3 @@
-<h1>This library is no longer maintained.</h1>
-
 <h1>Circular Pulsing Button</h1>
 <p>A simple circular button for Android that has a pulsing effect when you click on it.</p>
 <h2>How to Add the Library</h2>
