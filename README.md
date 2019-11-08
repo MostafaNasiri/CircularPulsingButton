@@ -1,4 +1,4 @@
-<h1>Circular Pulsing Button</h1>
+<h1>Circular Pulsing Button (This library is no longer maintained)</h1>
 <p>A simple circular button for Android that has a pulsing effect when you click on it.</p>
 <h2>How to Add the Library</h2>
 <p>This library is availabe in the jcenter repository. Simply add this line of code in your dependencies:</p>
